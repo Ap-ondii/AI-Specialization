@@ -1,0 +1,42 @@
+** Manual **
+
+def sort_dictionaries_manual(list_of_dicts, key):
+    """
+    Sorts a list of dictionaries by a specific key using a lambda function.
+    """
+    return sorted(list_of_dicts, key=lambda x: x[key])
+
+# Example usage:
+data = [
+    {'name': 'Alice', 'age': 30},
+    {'name': 'Bob', 'age': 25},
+    {'name': 'Charlie', 'age': 35}
+]
+
+sorted_by_age_manual = sort_dictionaries_manual(data, 'age')
+print("Manual Sort by Age:", sorted_by_age_manual)
+
+sorted_by_name_manual = sort_dictionaries_manual(data, 'name')
+print("Manual Sort by Name:", sorted_by_name_manual)
+
+
+
+AI SUGGESTED
+def sort_dictionaries_ai(list_of_dicts, key):
+    """
+    Sorts a list of dictionaries by a specific key.
+    """
+    return sorted(list_of_dicts, key=lambda d: d[key])
+
+# Example usage:
+data_ai = [
+    {'name': 'Alice', 'age': 30},
+    {'name': 'Bob', 'age': 25},
+    {'name': 'Charlie', 'age': 35}
+]
+
+sorted_by_age_ai = sort_dictionaries_ai(data_ai, 'age')
+print("AI-Suggested Sort by Age:", sorted_by_age_ai)
+
+sorted_by_name_ai = sort_dictionaries_ai(data_ai, 'name')
+print("AI-Suggested Sort by Name:", sorted_by_name_ai)
