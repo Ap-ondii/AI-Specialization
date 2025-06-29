@@ -1,0 +1,30 @@
+ PART 3: NLP with spaCy (Amazon Reviews)
+
+import spacy
+nlp = spacy.load("en_core_web_sm")
+
+# Sample reviews (you can replace with real Amazon reviews)
+reviews = [
+    "I love my new Apple iPhone 14! The camera quality is amazing.",
+    "Samsung's Galaxy Buds are decent, but not great for the price.",
+    "Avoid this product. Terrible quality from BrandX."
+]
+
+# Rule-based sentiment keywords
+positive_words = ["love", "amazing", "great"]
+negative_words = ["terrible", "avoid", "bad"]
+
+# Run NER and sentiment analysis
+for review in reviews:
+    doc = nlp(review)
+    print(f"\nReview: {review}")
+    print("Entities:")
+    for ent in doc.ents:
+        print(f" - {ent.text} ({ent.label_})")
+
+    sentiment = "Neutral"
+    if any(word in review.lower() for word in positive_words):
+        sentiment = "Positive"
+    elif any(word in review.lower() for word in negative_words):
+        sentiment = "Negative"
+    print(f"Sentiment: {sentiment}")
