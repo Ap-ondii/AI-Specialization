@@ -1,0 +1,44 @@
+ PART 2: Deep Learning with TensorFlow (MNIST Dataset)
+
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+import matplotlib.pyplot as plt
+
+# Step 1: Load Dataset
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+# Step 2: Preprocess Data
+x_train = x_train.reshape(-1, 28, 28, 1) / 255.0
+x_test = x_test.reshape(-1, 28, 28, 1) / 255.0
+
+# Step 3: Build CNN Model
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    MaxPooling2D(2, 2),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D(2, 2),
+    Flatten(),
+    Dense(128, activation='relu'),
+    Dense(10, activation='softmax')
+])
+
+# Step 4: Compile and Train
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=5, validation_split=0.1)
+
+# Step 5: Evaluate
+loss, accuracy = model.evaluate(x_test, y_test)
+print("Test Accuracy:", accuracy)
+
+# Step 6: Predict and Visualize
+import numpy as np
+sample_images = x_test[:5]
+predictions = model.predict(sample_images)
+
+for i in range(5):
+    plt.imshow(sample_images[i].reshape(28,28), cmap='gray')
+    plt.title(f"Predicted: {np.argmax(predictions[i])}, Actual: {y_test[i]}")
+    plt.axis('off')
+    plt.show()
